@@ -1,5 +1,6 @@
 package com.scanner_geti;
 
+import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.facebook.react.ReactActivity;
@@ -21,5 +22,10 @@ public class MainActivity extends ReactActivity {
     Intent intent = new Intent("onConfigurationChanged");
     intent.putExtra("newConfig", newConfig);
     this.sendBroadcast(intent);
+  }
+
+  @Override 
+  public void onCreate(Bundle savedInstanceState){
+    super.onCreate(null);
   }
 }

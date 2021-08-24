@@ -1,3 +1,4 @@
 export const color = {
-    primaryColor: "#0ABAF7"
+    primaryColor: "#158FFF",
+    backgroundColor: "#FFFFF",
 }

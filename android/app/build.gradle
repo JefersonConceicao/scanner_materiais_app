@@ -136,6 +136,7 @@ android {
         versionName "1.0"
 
         missingDimensionStrategy 'react-native-camera', 'mlkit'
+        multiDexEnabled true
     }
     splits {
         abi {

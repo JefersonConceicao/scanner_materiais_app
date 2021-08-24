@@ -1,53 +1,39 @@
-import{ StyleSheet } from 'react-native'
+import styled from 'styled-components/native';
 import { color } from '../../constants';
 
-export const styles = StyleSheet.create({
-    headerBar: {
-        backgroundColor: color.primaryColor,
-        alignItems:'center',
-        padding:15,
+export const Container = styled.ScrollView({
+    marginHorizontal: '3%',
+    marginVertical:'3%',
+})
 
-    },
-    footerHome:{
-        flex:1, 
-        justifyContent:'flex-end'
-    },
-    buttonScanner:{ 
-        backgroundColor: color.primaryColor,
-        marginHorizontal: '5%',
-        padding:10,
-        borderRadius:12,
-        marginBottom:8,
-    },
-    titleText: {
-        fontSize:18,
-        color:"#fff",
-    },
-    textSubmit: {
-        textAlign:'center',
-        color:"#ffff"
-    },
-    content:{
-        flex:1,
-    },
-    contentScan:{
-        marginVertical:'10%',
-        marginHorizontal:'4%',
-        width:'90%',
-        alignItems:'center',
-        padding:20,
-        borderLeftWidth:3,
-        borderRightWidth:3,
-        borderColor:'#ffff',
-        borderColor:color.primaryColor,
-    },
-    backButtonScanner:{
-        marginLeft:'2%',
-        fontSize:15,
-        color:'#fff',
-    },
-    descriptMaterial:{
-        alignItems:'center',
-        marginVertical:'2%',
-    }
-});
+export const Title = styled.Text({
+    fontFamily: 'Roboto',
+    fontWeight:'100',
+    fontSize:20,
+})
+
+export const Grid = styled.View({
+    flexDirection: 'row',
+    justifyContent:'space-around',
+    flexWrap:'wrap',
+    margin:'4%',
+})
+
+export const Item = styled.TouchableOpacity({
+    backgroundColor:"#fff",
+    height:142,
+    width:127,
+    borderWidth:1,
+    borderColor: color.primaryColor,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation: '8',
+    borderRadius:3,
+})
+
+export const DescriptSetor = styled.Text({
+    fontSize:20,
+    color:color.primaryColor,
+    fontWeight:'100',
+})
+
