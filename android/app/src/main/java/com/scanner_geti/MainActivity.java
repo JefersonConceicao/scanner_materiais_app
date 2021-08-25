@@ -25,7 +25,7 @@ public class MainActivity extends ReactActivity {
   }
 
   @Override 
-  protected void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState){
     super.onCreate(null);
   }
 }
