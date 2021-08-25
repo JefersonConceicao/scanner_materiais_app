@@ -1,26 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {FlatList, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { BottomPopUp, Select } from 'react-native-gpp-utils';
 import Layout from '../../components/layout';
 import {
-    Grid, 
-    Container, 
-    CardItem, 
-    ColumnDescItem, 
-    ColumnSettingsItem,
-    TitleItem,
-    SubTitleItem,
-    SettingsItem, 
-    Footer,
+  Grid,
+  Container,
+  CardItem,
+  TitleItem,
+  SubTitleItem,
+  SettingsItem,
+  Footer,
+  TextButton,
+  PrimaryButton,
 } from './style';
-import { Title, Row} from '../globalStyle';
-import {ReqMateriais} from '../../redux/actions';
+import { Title } from '../globalStyle';
+import { ReqMateriais } from '../../redux/actions';
 
 const Materiais = ({
-  navgation,
+  navigation,
   route,
   ReqMateriais,
-  loadingMateriais,
   dataMateriais,
 }) => {
   const [item, setItem] = useState(null)
@@ -29,17 +29,18 @@ const Materiais = ({
     ReqMateriais(route.params);
   }, []);
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <CardItem>
-        <ColumnDescItem>
-            <TitleItem> {!!item.nome_material ? item.nome_material : "N/A"} </TitleItem>
-            <SubTitleItem> {!!item.codigo_barra ? item.codigo_barra : "N/A"} </SubTitleItem>
-        </ColumnDescItem>
-        <ColumnSettingsItem>
-            <SettingsItem> {!!item.situacao ? item.situacao : "N/A" } </SettingsItem>
-            <SettingsItem> {!!item.valor ? item.valor : "N/A"} </SettingsItem>
-            <SettingsItem bold> {!!item.local ? item.local : "N/A"} </SettingsItem>
-        </ColumnSettingsItem>
+      <View>
+        <TitleItem> {!!item.nome_material ? item.nome_material : "N/A"} </TitleItem>
+        <SubTitleItem />
+        <SubTitleItem> {!!item.codigo_barra ? item.codigo_barra : "N/A"} </SubTitleItem>
+      </View>
+      <View>
+        <SettingsItem> {!!item.situacao ? item.situacao : "N/A"} </SettingsItem>
+        <SettingsItem> {!!item.valor ? item.valor : "N/A"} </SettingsItem>
+        <SettingsItem bold> {!!item.local ? item.local : "N/A"} </SettingsItem>
+      </View>
     </CardItem>
   );
 
@@ -47,6 +48,17 @@ const Materiais = ({
     <Layout>
       <Container>
         <Title> Itens: </Title>
+        <View>
+          <Select
+            itens={[
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]}
+            onSelect={item => {
+              console.log(item)
+            }}
+          />
+        </View>
         <Grid>
           <FlatList
             renderItem={renderItem}
@@ -55,13 +67,21 @@ const Materiais = ({
             extraData={item}
           />
         </Grid>
+        <Footer>
+          <PrimaryButton onPress={() => {
+            navigation.navigate('Scanner')
+          }}>
+            <TextButton> Scanear Material </TextButton>
+          </PrimaryButton>
+        </Footer>
+
       </Container>
     </Layout>
   );
 };
 
-const mapStateToProps = ({Materiais}) => {
-  const {loadingMateriais, dataMateriais} = Materiais;
+const mapStateToProps = ({ Materiais }) => {
+  const { loadingMateriais, dataMateriais } = Materiais;
 
   return {
     loadingMateriais,

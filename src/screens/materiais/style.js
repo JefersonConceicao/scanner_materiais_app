@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { color } from '../../constants';
 
 export const Grid = styled.View({
     marginHorizontal:'3%',
     marginVertical:'2%',
+    height:'85%',
 })
 
 export const Container = styled.View({
@@ -19,14 +20,6 @@ export const CardItem = styled.TouchableOpacity({
     borderColor: color.primaryColor,
     elevation:"8px",
     marginVertical:'4%',
-})
-
-export const ColumnDescItem = styled.View({
-
-})
-
-export const ColumnSettingsItem = styled.View({
-
 })
 
 export const TitleItem = styled.Text({
@@ -47,5 +40,24 @@ export const SettingsItem = styled.Text({
 })
 
 export const Footer = styled.View({
- 
+    left:0,
+    bottom:0,
+    right:0,
+    position:'absolute',
 })
+
+export const PrimaryButton = styled.TouchableOpacity({
+    backgroundColor: color.primaryColor,
+    width:'100%',
+    borderColor:'black',
+    borderRadius:25,
+})
+
+export const TextButton = styled.Text({
+    color: "white",
+    fontWeight:'bold',
+    fontSize:18,
+    textAlign:'center',
+    padding:10,
+});
+
