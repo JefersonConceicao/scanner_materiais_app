@@ -30,7 +30,9 @@ const Materiais = ({
   }, []);
 
   const renderItem = ({ item }) => (
-    <CardItem>
+    <CardItem onPress={() => { 
+        setItem(item);
+    }}>
       <View>
         <TitleItem> {!!item.nome_material ? item.nome_material : "N/A"} </TitleItem>
         <SubTitleItem />
@@ -48,17 +50,6 @@ const Materiais = ({
     <Layout>
       <Container>
         <Title> Itens: </Title>
-        <View>
-          <Select
-            itens={[
-              { label: '1', value: 1 },
-              { label: '2', value: 2 },
-            ]}
-            onSelect={item => {
-              console.log(item)
-            }}
-          />
-        </View>
         <Grid>
           <FlatList
             renderItem={renderItem}
@@ -74,7 +65,6 @@ const Materiais = ({
             <TextButton> Scanear Material </TextButton>
           </PrimaryButton>
         </Footer>
-
       </Container>
     </Layout>
   );

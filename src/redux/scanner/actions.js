@@ -6,7 +6,6 @@ import {
 export const ReqScanner = payload => ({
     type: REQ_SCANNER,
     payload,
-    navigation,
 })
 
 export const Scanner = payload => ({
