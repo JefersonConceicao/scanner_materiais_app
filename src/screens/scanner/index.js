@@ -50,15 +50,21 @@ const Scanner = ({ navigation }) => {
               buttonPositive: 'Ok',
               buttonNegative: 'Cancel',
             }}
-            onBarCodeRead={(data) => {
-              if (!!data) {
-                beep.play((success) => {
-                  if (success) console.log('succefully sound played');
-                });
+            // onBarCodeRead={(data) => {
+            //   if (!!data) {
+            //     beep.play((success) => {
+            //       if (success) console.log('succefully sound played');
+            //     });
 
-                navigation.replace("MateriaisPrev", data);
-              }
-            }}>
+            //     navigation.replace("MateriaisPrev", data);
+            //   }
+            // }}
+            >
+              <Scanned onPress={e => {
+                navigation.replace("MateriaisPrev");
+              }}>
+                <Text>  Scanear </Text>
+              </Scanned>
             </RNCamera>
         </ContainerScanner>
       </Container>

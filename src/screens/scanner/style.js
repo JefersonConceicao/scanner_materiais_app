@@ -11,3 +11,6 @@ export const ContainerScanner = styled.View({
 export const Scanned = styled.TouchableOpacity({
     backgroundColor: color.primaryColor,
 })
+
+
+

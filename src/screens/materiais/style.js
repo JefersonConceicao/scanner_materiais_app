@@ -4,7 +4,7 @@ import { color } from '../../constants';
 export const Grid = styled.View({
     marginHorizontal:'3%',
     marginVertical:'2%',
-    height:'85%',
+    height:'83%',
 })
 
 export const Container = styled.View({
@@ -39,11 +39,8 @@ export const SettingsItem = styled.Text({
     fontWeight: (props) => !!props.bold ? 'bold' : '100', 
 })
 
-export const Footer = styled.View({
-    left:0,
-    bottom:0,
-    right:0,
-    position:'absolute',
+export const Footer = styled.View({    
+
 })
 
 export const PrimaryButton = styled.TouchableOpacity({

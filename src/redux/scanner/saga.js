@@ -7,7 +7,7 @@ import {
     Scanner
 } from './actions';
 
-function* scannerSaga({ payload}) {
+function* scannerSaga({ payload }) {
     try {
         const { data } = yield call(apiScanner, payload);
         yield put(Scanner(data));
