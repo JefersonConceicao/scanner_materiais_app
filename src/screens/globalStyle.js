@@ -18,5 +18,17 @@ export const Row = styled.View({
     margin:'2%',
 })
 
+export const TextSubmit = styled.Text({
+    color:"#ffff",
+    textAlign:'center',
+    padding:10,
+    fontSize:18,
+    fontWeight:'bold',
+})
 
+export const SubmitButton = styled.TouchableOpacity({
+    backgroundColor: color.primaryColor,
+    marginHorizontal:'3%',
+    borderRadius:25,
+})
 

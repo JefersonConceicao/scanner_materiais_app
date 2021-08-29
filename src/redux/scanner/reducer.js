@@ -5,7 +5,7 @@ import {
 
 const initialState = {
     loadingScanner:false,
-    dataScan: null
+    dataScan: {}
 }
 
 export default function(state = initialState, action){

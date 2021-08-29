@@ -20,6 +20,7 @@ import { ReqMateriais } from '../../redux/actions';
 const Materiais = ({
   navigation,
   route,
+  loadingMateriais,
   ReqMateriais,
   dataMateriais,
 }) => {
@@ -40,7 +41,6 @@ const Materiais = ({
       </View>
       <View>
         <SettingsItem> {!!item.situacao ? item.situacao : "N/A"} </SettingsItem>
-        <SettingsItem> {!!item.valor ? item.valor : "N/A"} </SettingsItem>
         <SettingsItem bold> {!!item.local ? item.local : "N/A"} </SettingsItem>
       </View>
     </CardItem>
@@ -56,6 +56,10 @@ const Materiais = ({
             data={dataMateriais}
             keyExtractor={(item) => item.id.toString()}
             extraData={item}
+            onRefresh={() => {
+              ReqMateriais(route.params)
+            }}
+            refreshing={loadingMateriais}
           />
         </Grid>
         <Footer>

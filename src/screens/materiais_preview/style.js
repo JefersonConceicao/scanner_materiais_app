@@ -29,3 +29,19 @@ export const TextSubmit = styled.Text({
     fontSize:18,
     fontWeight:'bold',
 })
+
+export const TextSuccess = styled.Text({
+    color: color.primaryColor,
+    textAlign:'center',
+    padding:10,
+    fontSize:18,
+    fontWeight:'bold',
+})
+
+export const TextError = styled.Text({
+    color: color.dangerColor,
+    textAlign:'center',
+    padding:10,
+    fontSize:18,
+    fontWeight:'bold',
+})

@@ -20,7 +20,6 @@ function* getMateriaisSaga({payload}) {
 function* saveMateriaisSaga({ payload, afterSubmit}){
   try{
     const { data } = yield call(apiSaveMateriais, payload);
-    console.log()
     yield put(SaveMateriais());
 
     afterSubmit(data);
