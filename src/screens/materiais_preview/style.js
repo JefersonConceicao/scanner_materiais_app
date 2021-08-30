@@ -20,6 +20,7 @@ export const SubmitButton = styled.TouchableOpacity({
     backgroundColor: color.primaryColor,
     marginHorizontal:'3%',
     borderRadius:25,
+    marginVertical:'3%',
 })
 
 export const TextSubmit = styled.Text({

@@ -32,7 +32,7 @@ const Scanner = ({ navigation }) => {
   })
 
   return (
-    <Layout>
+    <Layout withback>
       <Container>
         <ContainerScanner>
           <RNCamera

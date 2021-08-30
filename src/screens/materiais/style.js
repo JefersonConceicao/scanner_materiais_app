@@ -4,7 +4,6 @@ import { color } from '../../constants';
 export const Grid = styled.View({
     marginHorizontal:'3%',
     marginVertical:'2%',
-    height:'83%',
 })
 
 export const Container = styled.View({
@@ -15,16 +14,16 @@ export const Container = styled.View({
 export const CardItem = styled.TouchableOpacity({
     flexDirection:'row',
     justifyContent:'space-between',
-    backgroundColor:"#F3F1F1",
-    borderWidth:1,
-    borderColor: color.primaryColor,
-    elevation:"8px",
     marginVertical:'4%',
+    borderWidth:1,
+    color:'black',
+    borderRadius:7,
 })
 
 export const TitleItem = styled.Text({
     fontSize: 18,
-    fontWeight:'100',
+    fontWeight:'bold',
+    color: color.primaryColor,
 })
 
 export const SubTitleItem = styled.Text({
@@ -40,12 +39,11 @@ export const SettingsItem = styled.Text({
 })
 
 export const Footer = styled.View({    
-
+    
 })
 
 export const PrimaryButton = styled.TouchableOpacity({
     backgroundColor: color.primaryColor,
-    width:'100%',
     borderColor:'black',
     borderRadius:25,
 })
@@ -58,3 +56,13 @@ export const TextButton = styled.Text({
     padding:10,
 });
 
+export const TextEmpty = styled.Text({
+    fontSize:20,
+    color:color.primaryColor,
+})
+
+
+export const HeaderList = styled.View({
+    flexDirection:'row',
+    justifyContent:'space-between'
+})

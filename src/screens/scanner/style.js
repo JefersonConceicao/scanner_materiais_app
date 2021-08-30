@@ -2,8 +2,6 @@ import styled from 'styled-components/native';
 import { color } from '../../constants';
 import { Dimensions } from 'react-native';
 
-const { height, width } = Dimensions;
-
 export const ContainerScanner = styled.View({})
 
 export const Scanned = styled.TouchableOpacity({
@@ -11,10 +9,10 @@ export const Scanned = styled.TouchableOpacity({
 })
 
 export const ScannerLine = styled.View({
-    borderWidth: 5,
+    borderWidth: 0.5,
     borderColor:"#ffff",
     backgroundColor: "transparent",
-    width:"50%",
+    width:"80%",
     height:"50%",
 })
 

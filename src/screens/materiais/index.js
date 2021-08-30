@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { FlatList, Text, View, TouchableOpacity } from 'react-native';
 import { BottomPopUp, Select } from 'react-native-gpp-utils';
 import Layout from '../../components/layout';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+
 import {
   Grid,
   Container,
@@ -13,6 +15,8 @@ import {
   Footer,
   TextButton,
   PrimaryButton,
+  TextEmpty,
+  HeaderList,
 } from './style';
 import { Title } from '../globalStyle';
 import { ReqMateriais } from '../../redux/actions';
@@ -46,12 +50,34 @@ const Materiais = ({
     </CardItem>
   );
 
+  const renderEmptyComponent = () => {
+    return(
+      <View> 
+        <TextEmpty> Nenhum item na lista </TextEmpty>
+      </View>
+    )
+  }
+
   return (
-    <Layout>
+    <Layout withback>
       <Container>
-        <Title> Itens: </Title>
+        <HeaderList>
+          <Title> Itens: </Title>
+          <PrimaryButton onPress={() => {
+            navigation.navigate('Scanner')
+          }}>
+          <TextButton> 
+            <IconAnt 
+              name="barcode" 
+              size={30} 
+              color="#ffff"
+            />
+          </TextButton>
+        </PrimaryButton>
+        </HeaderList>
         <Grid>
           <FlatList
+            showsVerticalScrollIndicator={false}
             renderItem={renderItem}
             data={dataMateriais}
             keyExtractor={(item) => item.id.toString()}
@@ -60,15 +86,9 @@ const Materiais = ({
               ReqMateriais(route.params)
             }}
             refreshing={loadingMateriais}
+            ListEmptyComponent={renderEmptyComponent}
           />
         </Grid>
-        <Footer>
-          <PrimaryButton onPress={() => {
-            navigation.navigate('Scanner')
-          }}>
-            <TextButton> Scanear Material </TextButton>
-          </PrimaryButton>
-        </Footer>
       </Container>
     </Layout>
   );

@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 import {View, Text, Alert} from 'react-native';
 import Orientation from 'react-native-orientation';
 import IconFA from 'react-native-vector-icons/FontAwesome5';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 
 import Layout from '../../components/layout';
 import {
-  Label, 
-  Input, 
-  Row, 
+  Label,
+  Input,
+  Row,
   Footer,
-  SubmitButton, 
+  SubmitButton,
   TextSubmit,
   TextSuccess,
   TextError,
@@ -30,7 +31,14 @@ const MateriaisPrev = ({
   ReqSaveMateriais,
   dataScan,
 }) => {
-  const [form, setForm] = useState(!!dataScan ? {...dataScan} : {});
+  const [form, setForm] = useState(
+    Object.keys(dataScan).length > 0
+      ? {...dataScan}
+      : {
+          patrimonio: !!route.params ? route.params : '',
+          descricao: '',
+        },
+  );
   const [visible, setVisible] = useState(false);
   const [dataMaterial, setDataMaterial] = useState(null);
 
@@ -39,13 +47,17 @@ const MateriaisPrev = ({
   }, []);
 
   const handleSubmit = () => {
-    if(!form.patrimonio || !form.descricao){
-      Alert.alert("Preencha o formulário", "preencha o formulário corretamente");
+    if (form.patrimonio == '' || form.descricao == '') {
+      Alert.alert(
+        'Preencha o formulário',
+        'preencha o formulário corretamente',
+      );
       return;
     }
 
+    console.log(form);
     ReqSaveMateriais(form, afterSubmit);
-  }
+  };
 
   const afterSubmit = (data) => {
     setVisible(true);
@@ -53,19 +65,19 @@ const MateriaisPrev = ({
   };
 
   return (
-    <Layout>
+    <Layout withback>
       {!!loadingScanner ? (
         <Text> Carregando... </Text>
       ) : (
-        <Container>
+        <Container keyboardShouldPersistTaps={'handled'}>
           <Title> Informações do Item: </Title>
           <Container>
-            <Row> 
+            <Row>
               <Label> Patrimônio * </Label>
-              <Input 
-                defaultValue={!!route.params ? route.params : ''} 
-                onChangeText={value => {
-                  setForm({...form, patrimonio: value})
+              <Input
+                defaultValue={!!route.params ? route.params : ''}
+                onChangeText={(value) => {
+                  setForm({...form, patrimonio: value});
                 }}
               />
             </Row>
@@ -114,7 +126,7 @@ const MateriaisPrev = ({
             <Footer>
               <SubmitButton
                 onPress={() => {
-                  handleSubmit()
+                  handleSubmit();
                 }}
                 disabled={loadingSaveMateriais}>
                 <TextSubmit>
@@ -128,25 +140,31 @@ const MateriaisPrev = ({
       )}
 
       <BottomPopUp
-        minHeight={500}
+        minHeight={200}
         visible={visible}
         onDismiss={() => {
-          navigation.pop();
+          navigation.pop()
         }}>
-        {!dataMaterial?.error ? (
-          <Container>
-            <TextSuccess> {dataMaterial?.msg} </TextSuccess>
-            <IconFA name="check-square" size={40} style={{textAlign:'center'}}/>
-            <PrimaryButton
-              onPress={() => {
-                navigation.replace('Scanner');
-              }}>
+        <Container>
+          <IconAnt
+            name={!dataMaterial?.error ? 'checkcircle' : 'closecircle'}
+            size={40}
+            style={{
+              textAlign: 'center',
+              color: !dataMaterial?.error ? 'green' : 'red',
+            }}
+          />
+          <TextSuccess> {dataMaterial?.msg} </TextSuccess>
+
+          <PrimaryButton
+            onPress={() => {
+              navigation.replace('Scanner');
+            }}>
+            {!dataMaterial?.error && (
               <TextSubmit> Escanear Novamente </TextSubmit>
-            </PrimaryButton>
-          </Container>
-        ) : (
-          <TextError> Não foi possível salvar o registro, tente novamente. </TextError>
-        )}
+            )}
+          </PrimaryButton>
+        </Container>
       </BottomPopUp>
     </Layout>
   );

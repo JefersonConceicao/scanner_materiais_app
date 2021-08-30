@@ -2,24 +2,32 @@ import styled from 'styled-components/native';
 import { color } from '../../constants/index';
 
 export const Header = styled.View({
+    flexDirection:'row',
     backgroundColor: color.primaryColor,
-    justifyContent:'center',
     height:50,
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8,
+   
 }); 
+
+export const BackButton = styled.TouchableOpacity({
+    margin:'3%',
+})
+
+export const TitleView = styled.View({
+    width:'80%',
+    alignItems:'center',
+    justifyContent:'center',
+})
 
 export const TextTitle = styled.Text({
     color: "#ffff",
     fontFamily: 'Roboto',
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign:'center',
-
 })
+
 
 export const Container = styled.View({
     flex:1,
-    backgroundColor:'white',
+    backgroundColor:' #FFFF' ,
 })
 
