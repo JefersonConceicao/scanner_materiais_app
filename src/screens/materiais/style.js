@@ -38,9 +38,7 @@ export const SettingsItem = styled.Text({
     fontWeight: (props) => !!props.bold ? 'bold' : '100', 
 })
 
-export const Footer = styled.View({    
-    
-})
+export const Footer = styled.View({})
 
 export const PrimaryButton = styled.TouchableOpacity({
     backgroundColor: color.primaryColor,
@@ -61,8 +59,25 @@ export const TextEmpty = styled.Text({
     color:color.primaryColor,
 })
 
-
 export const HeaderList = styled.View({
     flexDirection:'row',
     justifyContent:'space-between'
+})
+
+export const ContainerPopUp = styled.ScrollView({
+    margin:'2%',
+})
+
+export const InputInPopUp = styled.TextInput({
+    borderBottomWidth:1,
+    borderRadius:5,
+    borderColor:'grey',
+    width:'40%',
+    padding:0,
+    textAlign:'right'
+}) 
+
+export const DeleteTouch = styled.TouchableOpacity({
+    alignItems: 'center', 
+    marginVertical:'2%',
 })

@@ -3,6 +3,8 @@ import {
   MATERIAIS,
   REQ_SAVEMATERIAIS,
   SAVE_MATERIAIS,
+  REQ_UPDATEMATERIAIS,
+  UPDATE_MATERIAIS,
 } from '../../constants/actionsTypes';
 
 const initialState = {
@@ -10,6 +12,7 @@ const initialState = {
   dataMateriais: [],
 
   loadingSaveMateriais:false,
+  loadingUpdateMateriais:false,
 };
 
 export default function (state = initialState, action) {
@@ -35,9 +38,19 @@ export default function (state = initialState, action) {
         ...state,
         loadingSaveMateriais:false,
       }
-    default:
+    case REQ_UPDATEMATERIAIS:
       return {
         ...state,
+        loadingUpdateMateriais:true,
+      }
+    case UPDATE_MATERIAIS:
+      return {
+        ...state,
+        loadingUpdateMateriais:false,
+      }
+    default:
+      return {
+        ...state
       };
   }
 }

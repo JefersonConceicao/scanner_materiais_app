@@ -1,8 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Alert} from 'react-native';
-import Orientation from 'react-native-orientation';
-import IconFA from 'react-native-vector-icons/FontAwesome5';
+import {Text, Alert} from 'react-native';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 
 import Layout from '../../components/layout';
@@ -14,10 +12,9 @@ import {
   SubmitButton,
   TextSubmit,
   TextSuccess,
-  TextError,
 } from './style';
-import {Title, Container} from '../globalStyle';
 
+import {Title, Container} from '../globalStyle';
 import {ReqScanner, ReqSaveMateriais} from '../../redux/actions';
 import {BottomPopUp} from 'react-native-gpp-utils';
 import {PrimaryButton} from '../materiais/style';
@@ -31,6 +28,7 @@ const MateriaisPrev = ({
   ReqSaveMateriais,
   dataScan,
 }) => {
+  console.log(loadingSaveMateriais)
   const [form, setForm] = useState(
     Object.keys(dataScan).length > 0
       ? {...dataScan}
@@ -42,7 +40,7 @@ const MateriaisPrev = ({
   const [visible, setVisible] = useState(false);
   const [dataMaterial, setDataMaterial] = useState(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     ReqScanner({codigo_barra: route.params});
   }, []);
 
@@ -52,6 +50,7 @@ const MateriaisPrev = ({
         'Preencha o formulário',
         'preencha o formulário corretamente',
       );
+      
       return;
     }
 
@@ -69,7 +68,10 @@ const MateriaisPrev = ({
       {!!loadingScanner ? (
         <Text> Carregando... </Text>
       ) : (
-        <Container keyboardShouldPersistTaps={'handled'}>
+        <Container 
+          keyboardShouldPersistTaps={'handled'}
+          showsVerticalScrollIndicator={false}
+        >
           <Title> Informações do Item: </Title>
           <Container>
             <Row>
@@ -130,8 +132,7 @@ const MateriaisPrev = ({
                 }}
                 disabled={loadingSaveMateriais}>
                 <TextSubmit>
-                  {' '}
-                  {!loadingSaveMateriais ? 'Salvar' : 'Carregando...'}{' '}
+                  {!loadingSaveMateriais ? 'Salvar' : 'Carregando...'}
                 </TextSubmit>
               </SubmitButton>
             </Footer>
@@ -143,7 +144,7 @@ const MateriaisPrev = ({
         minHeight={200}
         visible={visible}
         onDismiss={() => {
-          navigation.pop()
+          setVisible(false)
         }}>
         <Container>
           <IconAnt
@@ -170,8 +171,9 @@ const MateriaisPrev = ({
   );
 };
 
-const mapStateToProps = ({Scanner}) => {
-  const {loadingScanner, loadingSaveMateriais, dataScan} = Scanner;
+const mapStateToProps = ({Scanner, Materiais}) => {
+  const {loadingScanner,  dataScan} = Scanner;
+  const { loadingSaveMateriais } = Materiais;
 
   return {
     loadingScanner,

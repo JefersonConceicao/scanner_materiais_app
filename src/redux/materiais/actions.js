@@ -3,6 +3,8 @@ import {
   MATERIAIS,
   REQ_SAVEMATERIAIS,
   SAVE_MATERIAIS,
+  REQ_UPDATEMATERIAIS,
+  UPDATE_MATERIAIS,
 } from '../../constants/actionsTypes';
 
 export const ReqMateriais = (payload) => ({
@@ -23,5 +25,15 @@ export const ReqSaveMateriais = (payload, afterSubmit)=> ({
 
 export const SaveMateriais = payload => ({
   type: SAVE_MATERIAIS,
+  payload
+})
+
+export const ReqUpdateMateriais = payload => ({
+  type: REQ_UPDATEMATERIAIS,
+  payload
+})
+
+export const UpdateMateriais = payload => ({
+  type: UPDATE_MATERIAIS,
   payload
 })

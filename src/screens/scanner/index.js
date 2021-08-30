@@ -33,7 +33,7 @@ const Scanner = ({ navigation }) => {
 
   return (
     <Layout withback>
-      <Container>
+      <Container showsVerticalScrollIndicator={false}>
         <ContainerScanner>
           <RNCamera
             style={{

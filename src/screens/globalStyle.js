@@ -32,3 +32,16 @@ export const SubmitButton = styled.TouchableOpacity({
     borderRadius:25,
 })
 
+export const CardTitle = styled.Text({
+    fontWeight: 'bold',
+    fontSize:15,
+})
+
+export const CardText = styled.Text({
+    fontSize:15,
+})
+
+export const TextDanger = styled.Text({
+    color: color.dangerColor,
+    fontWeight:'bold',
+})
