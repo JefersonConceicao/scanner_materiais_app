@@ -5,6 +5,7 @@ import {
   REQ_SAVEMATERIAIS,
   REQ_UPDATEMATERIAIS,
 } from '../../constants/actionsTypes';
+import { Toast } from 'native-base';
 
 import { Materiais, SaveMateriais, UpdateMateriais } from '../actions';
 
@@ -22,7 +23,6 @@ function* saveMateriaisSaga({ payload, afterSubmit}){
   try{
     const { data } = yield call(apiSaveMateriais, payload);
     yield put(SaveMateriais());
-
     afterSubmit(data);
   }catch(error){
     console.log(error)
@@ -33,9 +33,22 @@ function* saveMateriaisSaga({ payload, afterSubmit}){
 function* updateMateriaisSaga({ payload }){
   try{
     const { data } = yield call(apiUpdateMateriais, payload);
-    
+    const { Materiais } = yield select();
+  
+    Toast.show({
+      text: data.msg,
+      type: !data.error ? 'success' : 'danger',
+      buttonText: 'Fechar',
+      duration:3000,  
+    })
   }catch(error){
-    console.log(error)
+    Toast.show({
+      text: 'Ocorreu um erro interno, tente de novo mais tarde.',
+      type: 'danger',
+      buttonText: 'Fechar',
+      duration:3000,  
+    })
+
     yield put(UpdateMateriais());
   }
 }

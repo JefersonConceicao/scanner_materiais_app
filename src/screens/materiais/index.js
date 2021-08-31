@@ -66,7 +66,7 @@ const Materiais = ({
       Alert.alert("Preencha o formulário", "revise o formulário e tente novamente");
       return;
     }
-
+    
     ReqUpdateMateriais(formUpdate);
   }
 

@@ -15,19 +15,19 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <Root>
-      <Provider store={Store}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Layout" component={Layout} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Materiais" component={Materiais} />
-            <Stack.Screen name="Scanner" component={Scanner} />
-            <Stack.Screen name="MateriaisPrev" component={MateriaisPrev} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
-    </Root>
+      <Root>
+        <Provider store={Store}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Layout" component={Layout} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Materiais" component={Materiais} />
+              <Stack.Screen name="Scanner" component={Scanner} />
+              <Stack.Screen name="MateriaisPrev" component={MateriaisPrev} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </Provider>
+      </Root>
   )
 }
 
