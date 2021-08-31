@@ -5,6 +5,8 @@ import {
   SAVE_MATERIAIS,
   REQ_UPDATEMATERIAIS,
   UPDATE_MATERIAIS,
+  REQ_DELETEMATERIAIS,
+  DELETE_MATERIAIS,
 } from '../../constants/actionsTypes';
 
 export const ReqMateriais = (payload) => ({
@@ -35,5 +37,15 @@ export const ReqUpdateMateriais = payload => ({
 
 export const UpdateMateriais = payload => ({
   type: UPDATE_MATERIAIS,
+  payload
+})
+
+export const ReqDeleteMateriais = id => ({
+  type:REQ_DELETEMATERIAIS,
+  id
+})
+
+export const DeleteMateriais = payload => ({
+  type:DELETE_MATERIAIS,
   payload
 })

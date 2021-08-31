@@ -8,7 +8,7 @@ export const Grid = styled.View({
 
 export const Container = styled.View({
     marginHorizontal: '3%',
-    marginVertical:'3%',
+    flex:1,
 })
 
 export const CardItem = styled.TouchableOpacity({
@@ -61,7 +61,7 @@ export const TextEmpty = styled.Text({
 
 export const HeaderList = styled.View({
     flexDirection:'row',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
 })
 
 export const ContainerPopUp = styled.ScrollView({

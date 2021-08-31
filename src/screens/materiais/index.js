@@ -23,15 +23,20 @@ import {
 
 import { Title, CardTitle, Row, CardText, SubmitButton, TextSubmit, TextDanger} from '../globalStyle';
 import { color } from '../../constants';
-import { ReqMateriais, ReqUpdateMateriais } from '../../redux/actions';
+import { ReqMateriais, ReqUpdateMateriais, ReqDeleteMateriais } from '../../redux/actions';
 
 const Materiais = ({
   navigation,
   route,
-  loadingMateriais,
-  dataMateriais,
+  //actions
   ReqMateriais,
   ReqUpdateMateriais,
+  ReqDeleteMateriais,
+  //loadings
+  loadingMateriais,
+  loadingUpdateMateriais,
+  //data
+  dataMateriais,
 }) => {
   const [item, setItem] = useState(null)
   const [formUpdate, setFormUpdate] = useState({
@@ -55,7 +60,8 @@ const Materiais = ({
       {
         style:"Sim, excluir",
         onPress:() => { 
-          console.log("delete material item " + id);
+          ReqDeleteMateriais(id);
+          setItem(null)
         }
       }
     ])
@@ -97,7 +103,7 @@ const Materiais = ({
 
   return (
     <Layout withback>
-      <Container>
+      <Container style={{ marginTop:'3%'}}>
         <HeaderList>
           <Title> Itens: </Title>
           <PrimaryButton onPress={() => {
@@ -112,7 +118,6 @@ const Materiais = ({
           </TextButton>
         </PrimaryButton>
         </HeaderList>
-        <Grid>
           <FlatList
             showsVerticalScrollIndicator={false}
             renderItem={renderItem}
@@ -125,7 +130,6 @@ const Materiais = ({
             refreshing={loadingMateriais}
             ListEmptyComponent={renderEmptyComponent}
           />
-        </Grid>
       </Container>
       {!!item &&
         <BottomPopUp
@@ -171,8 +175,12 @@ const Materiais = ({
             />
           </Row>
           <Row>
-            <SubmitButton style={{width:'100%'}} onPress={() => handleSubmitFormEdit()}>
-              <TextSubmit> Salvar </TextSubmit>   
+            <SubmitButton 
+              style={{width:'100%'}} 
+              onPress={() => handleSubmitFormEdit()}
+              disabled={loadingUpdateMateriais}
+            >
+              <TextSubmit> {loadingUpdateMateriais == false ? "Salvar" : "Carregando..."} </TextSubmit>   
             </SubmitButton>
           </Row>
           <DeleteTouch onPress={() => {
@@ -190,16 +198,23 @@ const Materiais = ({
 };
 
 const mapStateToProps = ({ Materiais }) => {
-  const { loadingMateriais, dataMateriais, loadingUpdateMateriais } = Materiais;
+  const { 
+    loadingMateriais, 
+    loadingUpdateMateriais,
+    loadingDeleteMateriais, 
+    dataMateriais
+  } = Materiais;
 
   return {
     loadingMateriais,
-    dataMateriais,
     loadingUpdateMateriais,
+    loadingDeleteMateriais,
+    dataMateriais,
   };
 };
 
 export default connect(mapStateToProps, {
   ReqMateriais,
   ReqUpdateMateriais,
+  ReqDeleteMateriais,
 })(Materiais);

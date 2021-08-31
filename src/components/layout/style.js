@@ -9,7 +9,8 @@ export const Header = styled.View({
 }); 
 
 export const BackButton = styled.TouchableOpacity({
-    margin:'3%',
+    marginVertical:'4%',
+    marginHorizontal:'2%',
 })
 
 export const TitleView = styled.View({

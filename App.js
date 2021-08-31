@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Store } from './src/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Root } from 'react-native-gpp-utils';
+import { Root } from 'native-base';
 
 import Home from './src/screens/home';
 import Materiais from './src/screens/materiais';

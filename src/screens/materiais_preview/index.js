@@ -28,7 +28,6 @@ const MateriaisPrev = ({
   ReqSaveMateriais,
   dataScan,
 }) => {
-  console.log(loadingSaveMateriais)
   const [form, setForm] = useState(
     Object.keys(dataScan).length > 0
       ? {...dataScan}
@@ -54,7 +53,6 @@ const MateriaisPrev = ({
       return;
     }
 
-    console.log(form);
     ReqSaveMateriais(form, afterSubmit);
   };
 
@@ -145,6 +143,7 @@ const MateriaisPrev = ({
         visible={visible}
         onDismiss={() => {
           setVisible(false)
+          navigation.pop()
         }}>
         <Container>
           <IconAnt

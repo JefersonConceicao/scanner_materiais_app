@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-    Text,
-} from 'react-native'
-import {
     Header,
     Container,
     TextTitle,
@@ -31,7 +28,6 @@ const Layout = ({
                 > 
                     {withback && <IconFA name="chevron-left" size={20} color="#ffff"/>}
                 </BackButton>
-                
                 <TitleView>
                     <TextTitle> 
                         Scanner Materiais  

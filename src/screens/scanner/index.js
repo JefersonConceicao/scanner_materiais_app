@@ -72,7 +72,7 @@ const Scanner = ({ navigation }) => {
           Aponte a camera para um código de barra ou
         </InfoScanner>
         <SubmitButton onPress={() => {
-          navigation.navigate("MateriaisPrev")
+          navigation.replace("MateriaisPrev")
         }}>
           <TextSubmit>  
             Cadastre Manualmente

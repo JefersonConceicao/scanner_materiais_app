@@ -5,6 +5,8 @@ import {
   SAVE_MATERIAIS,
   REQ_UPDATEMATERIAIS,
   UPDATE_MATERIAIS,
+  REQ_DELETEMATERIAIS,
+  DELETE_MATERIAIS,
 } from '../../constants/actionsTypes';
 
 const initialState = {
@@ -13,6 +15,7 @@ const initialState = {
 
   loadingSaveMateriais:false,
   loadingUpdateMateriais:false,
+  loadingDeleteMateriais:false,
 };
 
 export default function (state = initialState, action) {
@@ -37,6 +40,9 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loadingSaveMateriais:false,
+        dataMateriais: !!action.payload 
+          ? action.payload
+          : state.dataMateriais
       }
     case REQ_UPDATEMATERIAIS:
       return {
@@ -47,6 +53,19 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loadingUpdateMateriais:false,
+      }
+    case REQ_DELETEMATERIAIS:
+      return {
+        ...state,
+        loadingDeleteMateriais:true,
+      } 
+    case DELETE_MATERIAIS:
+      return {
+        ...state,
+        loadingDeleteMateriais:false,
+        dataMateriais: !!action.payload 
+          ? action.payload
+          : state.dataMateriais
       }
     default:
       return {
