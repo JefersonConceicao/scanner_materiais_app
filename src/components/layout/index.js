@@ -15,7 +15,7 @@ const Layout = ({
     withback
 }) => {
     const navigation = useNavigation()    
-
+    
     return (
         <>
             <Header>  
