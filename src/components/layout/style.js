@@ -14,7 +14,7 @@ export const BackButton = styled.TouchableOpacity({
 })
 
 export const TitleView = styled.View({
-    width:'80%',
+    width:(props) => props.withback ? '80%' : '90%',
     alignItems:'center',
     justifyContent:'center',
 })

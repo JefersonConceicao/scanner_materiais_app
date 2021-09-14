@@ -1,33 +1,64 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Layout from '../../components/layout';
-import {Grid, Item, DescriptSetor} from './style';
-import {Title, Container} from '../globalStyle';
-import {ReqSetores} from '../../redux/actions';
+import {Grid, Item, Header , Container} from './style';
+import {Title} from '../globalStyle';
+import {ReqSetores, SetSetorID} from '../../redux/actions';
+import { color } from '../../constants';
 
-const Home = ({loadingSetores, dataSetores, ReqSetores, navigation}) => {
+import IconAnt from 'react-native-vector-icons/AntDesign';
+
+const Home = ({
+  //LOADINGS
+  loadingSetores, 
+  //ACTIONS 
+  ReqSetores, 
+  SetSetorID,
+  //DATA 
+  dataSetores,
+  //OTHERS
+  navigation,
+  setorID
+}) => {
   useEffect(() => {
     ReqSetores();
   }, []);
 
+  const renderItem = ({item}) => (
+    <Item onPress={() => { 
+      navigation.navigate('Materiais', {setor_id: item.id})
+      SetSetorID(item.id)
+    }}> 
+      <Text> { item.nome_setor } </Text> 
+      <IconAnt 
+        name="right"
+        color={color.primaryColor}
+      />
+    </Item>
+  )
+
   return (
     <Layout>
       <Container>
-        <Title> Setores: </Title>
+        <Header> 
+          <Title> Setores: </Title>
+          <TouchableOpacity> 
+              <IconAnt 
+                name="pluscircleo"
+                size={28}
+                color={color.primaryColor}
+              />
+          </TouchableOpacity>
+        </Header>
         <Grid>
-          <>
-            {!!dataSetores.length &&
-              dataSetores.map((value, index) => (
-                <Item
-                  key={index}
-                  onPress={() => {
-                    navigation.navigate('Materiais', {setor_id: value.id});
-                  }}>
-                  <DescriptSetor> {value.nome_setor} </DescriptSetor>
-                </Item>
-              ))}
-          </>
+          <FlatList 
+            data={dataSetores}
+            onRefresh={() => ReqSetores()}
+            refreshing={loadingSetores}
+            renderItem={renderItem}
+            keyExtractor={item => item.id.toString()}
+          />
         </Grid>
       </Container>
     </Layout>
@@ -35,10 +66,11 @@ const Home = ({loadingSetores, dataSetores, ReqSetores, navigation}) => {
 };
 
 const mapStateToProps = ({Setores}) => {
-  const {loadingSetores, dataSetores} = Setores;
-  return {loadingSetores, dataSetores};
+  const {loadingSetores, dataSetores, setorID} = Setores;
+  return {loadingSetores, dataSetores, setorID};
 };
 
 export default connect(mapStateToProps, {
   ReqSetores,
+  SetSetorID,
 })(Home);

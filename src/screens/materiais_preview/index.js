@@ -27,13 +27,15 @@ const MateriaisPrev = ({
   ReqScanner,
   ReqSaveMateriais,
   dataScan,
+  setorID,
 }) => {
   const [form, setForm] = useState(
     Object.keys(dataScan).length > 0
-      ? {...dataScan}
+      ? {...dataScan, setor_id: setorID}
       : {
           patrimonio: !!route.params ? route.params : '',
           descricao: '',
+          setor_id: setorID,
         },
   );
   const [visible, setVisible] = useState(false);
@@ -170,14 +172,16 @@ const MateriaisPrev = ({
   );
 };
 
-const mapStateToProps = ({Scanner, Materiais}) => {
+const mapStateToProps = ({Scanner, Materiais, Setores}) => {
   const {loadingScanner,  dataScan} = Scanner;
   const { loadingSaveMateriais } = Materiais;
+  const { setorID } = Setores;
 
   return {
     loadingScanner,
     loadingSaveMateriais,
     dataScan,
+    setorID,
   };
 };
 

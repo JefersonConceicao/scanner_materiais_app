@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-
 import com.android.build.OutputFile
 
 /**
@@ -145,12 +144,12 @@ android {
         }
     }
     signingConfigs {
-        // release {
-        //     storeFile file('scanner_geti.keystore')
-        //     storePassword 'GETI2007'
-        //     keyAlias 'scanner_geti'
-        //     keyPassword 'GETI2007' 
-        // }
+        release {
+            storeFile file('geti_scanner.keystore')
+            storePassword 'GETI2007'
+            keyAlias 'scanner'
+            keyPassword 'GETI2007' 
+        }
 
         debug {
             storeFile file('debug.keystore')
@@ -166,7 +165,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
 

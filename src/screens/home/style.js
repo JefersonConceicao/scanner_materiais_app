@@ -1,24 +1,31 @@
 import styled from 'styled-components/native';
 import { color } from '../../constants';
 
+export const Container = styled.View({
+    marginHorizontal: '3%',
+    marginVertical:'3%',
+})
+
+export const Header = styled.View({
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    margin:'2%',
+})
+
 export const Grid = styled.View({
     flexDirection: 'row',
     justifyContent:'space-around',
     flexWrap:'wrap',
-    margin:'4%',
+    margin:'2%',
 })
 
 export const Item = styled.TouchableOpacity({
-    backgroundColor:"#fff",
-    height:142,
-    width:127,
-    marginBottom: '12%',
-    borderWidth:1,
+    borderBottomWidth: 0.6,
     borderColor: color.primaryColor,
+    padding:'5%',
+    flexDirection:'row',
+    justifyContent:'space-between',
     alignItems:'center',
-    justifyContent:'center',
-    elevation: '8',
-    borderRadius:3,
 })
 
 export const DescriptSetor = styled.Text({

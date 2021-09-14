@@ -1,6 +1,7 @@
 //SETORES
 export const REQ_SETORES = 'REQ_SETORES';
 export const SETORES = 'SETORES';
+export const SET_SETOR_ID = 'SET_SETOR_ID';
 
 //MATERIAIS
 export const REQ_MATERIAIS = 'REQ_MATERIAIS';

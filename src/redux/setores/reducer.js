@@ -1,11 +1,14 @@
 import { 
     REQ_SETORES,
-    SETORES
+    SETORES,
+    SET_SETOR_ID,
+    REMOVE_SETOR_ID,
 } from '../../constants/actionsTypes';
 
 const initialState = {
     loadingSetores: false,
-    dataSetores:[]
+    dataSetores:[],
+    setorID:null,
 }
 
 export default function(state = initialState, action){
@@ -22,6 +25,13 @@ export default function(state = initialState, action){
                 dataSetores:!!action.payload 
                     ? action.payload
                     : state.dataSetores
+            }
+        case SET_SETOR_ID:
+            return {
+                ...state,
+                setorID: !!action.payload
+                ? action.payload
+                : state.setorID
             }
         default: 
             return{
