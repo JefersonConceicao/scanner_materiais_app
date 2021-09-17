@@ -45,3 +45,21 @@ export const TextDanger = styled.Text({
     color: color.dangerColor,
     fontWeight:'bold',
 })
+
+export const FormGroup = styled.View({
+    marginVertical:'2%',
+})
+
+export const FormLabel = styled.Text({
+    fontWeight:'200',
+})
+
+export const FormInput = styled.TextInput({
+    borderWidth:0.8,
+    borderColor: color.primaryColor,
+    padding:'3%',
+    marginTop:'2%',
+    borderRadius:15,
+})
+
+

@@ -1,6 +1,10 @@
 //SETORES
 export const REQ_SETORES = 'REQ_SETORES';
 export const SETORES = 'SETORES';
+export const REQ_CREATE_SETOR = 'REQ_CREATE_SETOR';
+export const CREATE_SETOR = 'CREATE_SETOR';
+export const REQ_DELETE_SETOR = 'REQ_DELETE_SETOR';
+export const DELETE_SETOR = 'DELETE_SETOR';
 export const SET_SETOR_ID = 'SET_SETOR_ID';
 
 //MATERIAIS

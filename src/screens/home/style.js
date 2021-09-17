@@ -7,10 +7,11 @@ export const Container = styled.View({
 })
 
 export const Header = styled.View({
+    marginVertical:'2%',
+    paddingBottom:'5%',                        
     flexDirection: 'row',
     justifyContent:'space-between',
-    margin:'2%',
-})
+})  
 
 export const Grid = styled.View({
     flexDirection: 'row',
@@ -20,17 +21,34 @@ export const Grid = styled.View({
 })
 
 export const Item = styled.TouchableOpacity({
-    borderBottomWidth: 0.6,
+    borderWidth: 0.8,
     borderColor: color.primaryColor,
-    padding:'5%',
+    padding:'6%',
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
+    marginVertical:'3%',
 })
 
 export const DescriptSetor = styled.Text({
-    fontSize:20,
+    fontSize: 20,
     color:color.primaryColor,
     fontWeight:'100',
 })
+
+export const ButtonDeleteSetor = styled.TouchableOpacity({
+    backgroundColor: color.dangerColor,
+    padding:10,
+    flexDirection:'row',
+    justifyContent:'center',
+    borderRadius:5,
+})
+
+export const LabelDeleteSetor = styled.Text({
+    color: "#ffff",
+    fontWeight:'bold',
+    paddingLeft:'5%',
+    fontSize:16,
+})
+
 
