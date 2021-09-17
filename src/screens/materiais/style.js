@@ -15,9 +15,10 @@ export const CardItem = styled.TouchableOpacity({
     flexDirection:'row',
     justifyContent:'space-between',
     marginVertical:'4%',
+    padding:'2%',
     borderWidth:1,
-    color:'black',
-    borderRadius:7,
+    borderRadius:10,
+    borderColor:color.primaryColor,
 })
 
 export const TitleItem = styled.Text({

@@ -10,20 +10,20 @@ import {
   Header, 
   Container,
   ButtonDeleteSetor,
+  ButtonCreateSetor,
   LabelDeleteSetor  
 } from './style';
 
 import { 
-  Title, 
-  CardTitle, 
+  Title,  
   FormGroup,
-  FormLabel,
-  FormInput, 
+  FormInput,
+  TextSubmit,
 } from '../globalStyle';
 
 import { color } from '../../constants';
 
-import { ReqSetores, SetSetorID, ReqDeleteSetor, ReqStoreCreate } from '../../redux/actions';
+import { ReqSetores, SetSetorID, ReqDeleteSetor,ReqSetoresCreate } from '../../redux/actions';
 
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -32,11 +32,12 @@ const Home = ({
   //LOADINGS
   loadingSetores,
   loadingDeleteSetor,
+  loadingCreateSetor,
   //ACTIONS 
   ReqSetores,
   SetSetorID,
   ReqDeleteSetor,
-  ReqStoreCreate,
+  ReqSetoresCreate,
   //DATA 
   dataSetores,
   //OTHERS
@@ -49,9 +50,11 @@ const Home = ({
   const [item, setItem] = useState(null)
   const [popupCreate, setPopupCreate] = useState(false)
   const [popupSettings, setPopupSettings] = useState(false)
+  const [formCreateSetor, setFormCreateSetor] = useState("")
 
   const closePopups = () => {
     setPopupSettings(false);
+    setPopupCreate(false)
   }
 
   const showPopupSettings = () => {
@@ -89,11 +92,25 @@ const Home = ({
       >
         <Title> Cadastre um novo setor</Title>
         <FormGroup>
-
           <FormInput
             placeholder="Preencha o nome do setor"
+            onChangeText={value => {
+              setFormCreateSetor(value)
+            }}
             autoFocus={true}
           /> 
+        </FormGroup>
+        <FormGroup> 
+          <ButtonCreateSetor 
+            disabled={!formCreateSetor || loadingCreateSetor}
+            onPress={() => {
+              handleButtonCreateSetor(closePopups);
+            }}
+          >
+            <TextSubmit> 
+              {!loadingCreateSetor ? `Salvar` : `Carregando...`}   
+            </TextSubmit>
+          </ButtonCreateSetor>
         </FormGroup>
       </BottomPopUp>
     )
@@ -118,6 +135,12 @@ const Home = ({
         />
     </Item>
   )
+
+  const handleButtonCreateSetor = (closePopups) => {
+    if(!!formCreateSetor){
+      ReqSetoresCreate({ nome_setor: formCreateSetor }, closePopups);
+    }
+  }
 
   return (
     <Layout>
@@ -157,13 +180,21 @@ const Home = ({
 };
 
 const mapStateToProps = ({ Setores }) => {
-  const { loadingSetores, dataSetores, loadingDeleteSetor, setorID} = Setores;
-
-  return { 
+  const { 
+    loadingCreateSetor,
     loadingSetores, 
     dataSetores, 
+    loadingDeleteSetor, 
+    setorID,
+  } = Setores;
+
+  return { 
+    loadingSetores,
+    loadingCreateSetor, 
+    loadingDeleteSetor,
+    
+    dataSetores, 
     setorID, 
-    loadingDeleteSetor 
   };
 };
 
@@ -171,5 +202,5 @@ export default connect(mapStateToProps, {
   ReqSetores,
   SetSetorID,
   ReqDeleteSetor,
-  ReqStoreCreate,
+  ReqSetoresCreate,
 })(Home);

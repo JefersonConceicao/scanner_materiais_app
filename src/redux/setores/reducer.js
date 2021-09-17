@@ -1,14 +1,18 @@
 import { 
     REQ_SETORES,
     SETORES,
-    SET_SETOR_ID,
+    REQ_CREATE_SETOR,
+    CREATE_SETOR,
     REQ_DELETE_SETOR,
     DELETE_SETOR,
+    SET_SETOR_ID,
 } from '../../constants/actionsTypes';
 
 const initialState = {
     loadingSetores: false,
+    loadingCreateSetor:false,
     loadingDeleteSetor: false,
+
     dataSetores:[],
     setorID:null,
 }
@@ -28,12 +32,18 @@ export default function(state = initialState, action){
                     ? action.payload
                     : state.dataSetores
             }
-        case SET_SETOR_ID:
+        case REQ_CREATE_SETOR:
             return {
                 ...state,
-                setorID: !!action.payload
-                ? action.payload
-                : state.setorID
+                loadingCreateSetor: true,
+            }
+        case CREATE_SETOR:
+            return {
+                ...state,
+                loadingCreateSetor:false,
+                dataSetores: !!action.payload 
+                    ? action.payload 
+                    : state.dataSetores
             }
         case REQ_DELETE_SETOR:  
             return {
@@ -47,6 +57,13 @@ export default function(state = initialState, action){
                 dataSetores: !!action.payload 
                     ? action.payload
                     : state.dataSetores
+            }
+        case SET_SETOR_ID:
+            return {
+                ...state,
+                setorID: !!action.payload
+                ? action.payload
+                : state.setorID
             }
         default: 
             return{

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { FlatList, Text, View, Alert, RefreshControl } from 'react-native';
 import { BottomPopUp } from 'react-native-gpp-utils';
 import Layout from '../../components/layout';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconIon from 'react-native-vector-icons/Ionicons';
 
 import {
-  Grid,
   Container,
   CardItem,
   TitleItem,
@@ -21,7 +20,7 @@ import {
   DeleteTouch,
 } from './style';
 
-import { Title, CardTitle, Row, CardText, SubmitButton, TextSubmit, TextDanger} from '../globalStyle';
+import { Title, CardTitle, Row,  SubmitButton, TextSubmit, TextDanger} from '../globalStyle';
 import { color } from '../../constants';
 import { ReqMateriais, ReqUpdateMateriais, ReqDeleteMateriais } from '../../redux/actions';
 
@@ -48,15 +47,13 @@ const Materiais = ({
     setor_id:"",
   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     ReqMateriais(route.params);
   }, []);
 
   const handleDelete = id => {
     Alert.alert("Tem certeza?", "Deseja realmente excluír este item?", [
-      { 
-        text: "Cancelar", 
-      },
+      { text: "Cancelar" },
       {
         style:"Sim, excluir",
         onPress:() => { 
@@ -124,9 +121,14 @@ const Materiais = ({
             data={dataMateriais}
             keyExtractor={(item) => item.id.toString()}
             extraData={item}
-            onRefresh={() => {
-              ReqMateriais(route.params)
-            }}
+            refreshControl={
+              <RefreshControl 
+                colors={[color.primaryColor]}
+                onRefresh={() => {
+                  ReqMateriais(route.params)
+                }}
+              />
+            }
             refreshing={loadingMateriais}
             ListEmptyComponent={renderEmptyComponent}
           />

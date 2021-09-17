@@ -4,11 +4,13 @@ import { Toast } from 'native-base';
 import { 
     REQ_SETORES,
     REQ_DELETE_SETOR,
+    REQ_CREATE_SETOR,
 } from '../../constants/actionsTypes';
 
 import {
     Setores,
     DeleteSetor,
+    SetoresCreate,
 } from '../actions';
 
 import api from '../../../services/api';
@@ -22,6 +24,35 @@ function* getSetoresSaga({payload}){
     }
 }
 
+function* createSetoresSaga({payload, closePopups}){
+    try{
+        const { Setores } = yield select()
+        const { data } = yield call(apiCreateSetores, payload)  
+
+        if(!data.error){
+            let arraySetores = [data.data_added, ...Setores.dataSetores];
+            yield put(SetoresCreate(arraySetores));
+        } 
+        
+        Toast.show({
+            text: data.msg,
+            type: !data.error ? 'success' : 'danger',
+            buttonText: 'Fechar',
+            duration: 3000,
+        })
+
+        closePopups()
+    }catch(error){
+        Toast.show({
+            text: 'Ocorreu um erro interno, tente novamente mais tarde.',
+            type: 'danger',
+            buttonText: 'Fechar',
+            duration:1500,
+        })
+        yield put(SetoresCreate());
+    }
+}
+
 function* deleteSetoresSaga({ payload, closePopups }){
     try{
         const { Setores } = yield select()
@@ -31,7 +62,7 @@ function* deleteSetoresSaga({ payload, closePopups }){
             text: data.msg,
             type: !data.error ? 'success' : 'danger',
             buttonText: 'Fechar',
-            duration:3000,
+            duration:1500,
         })  
 
         newArrayDataSetores = Setores.dataSetores.filter(value => value.id != payload); 
@@ -56,8 +87,12 @@ const apiGetSetores = async payload => {
 }
 
 const apiDeleteSetores = async payload => {
-    console.log(payload);
     const response = api.delete(`/api/deleteSetor/${payload}`);
+    return response;
+}
+
+const apiCreateSetores = async payload => {
+    const response = api.post('/api/storeSetor', payload);
     return response;
 }
 
@@ -67,8 +102,12 @@ function* watchGetSetoresSaga(){
 function* watchDeleteSetoresSaga(){
     yield takeLatest(REQ_DELETE_SETOR, deleteSetoresSaga)
 }
+function* watchCreateSetoresSaga(){
+    yield takeLatest(REQ_CREATE_SETOR, createSetoresSaga)
+}
 
 export default function* rootSaga(){
     yield fork(watchGetSetoresSaga);
     yield fork(watchDeleteSetoresSaga);
+    yield fork(watchCreateSetoresSaga);
 }

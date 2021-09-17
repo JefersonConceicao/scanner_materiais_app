@@ -18,15 +18,15 @@ export const Setores = payload => ({
     payload 
 })
 
-export const ReqSetoresCreate = payload => ({
+export const ReqSetoresCreate = (payload, closePopups) => ({
     type: REQ_CREATE_SETOR,
     payload,
+    closePopups,
 })
 
 export const SetoresCreate = (payload, closePopups) => ({
     type: CREATE_SETOR,
     payload,
-    closePopups,
 })
 
 export const ReqDeleteSetor = (payload, closePopups) => ({

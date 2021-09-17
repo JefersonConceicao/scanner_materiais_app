@@ -23,6 +23,7 @@ export const Grid = styled.View({
 export const Item = styled.TouchableOpacity({
     borderWidth: 0.8,
     borderColor: color.primaryColor,
+    borderRadius:10,
     padding:'6%',
     flexDirection:'row',
     justifyContent:'space-between',
@@ -50,5 +51,12 @@ export const LabelDeleteSetor = styled.Text({
     paddingLeft:'5%',
     fontSize:16,
 })
+
+export const ButtonCreateSetor = styled.TouchableOpacity({
+    backgroundColor: (props) => !props.disabled ? color.primaryColor : color.secondaryColor,
+})
+
+
+
 
 
