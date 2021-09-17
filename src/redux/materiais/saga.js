@@ -14,23 +14,32 @@ function* getMateriaisSaga({ payload }) {
   try {
     const { data } = yield call(apiGetMateriais, payload)
     yield put(Materiais(data));
+
   } catch (error) {
     console.log(error)
     yield put(Materiais());
   }
 }
 
-function* saveMateriaisSaga({ payload, afterSubmit }) {
+function* saveMateriaisSaga({ payload, navigation }) {
   try {
     const { data } = yield call(apiSaveMateriais, payload);
     const { Materiais } = yield select()
     
-    let newArrayData = [...[data.register_added], ...Materiais.dataMateriais];
+    if(!data.error){
+      let newArrayData = [...[data.register_added], ...Materiais.dataMateriais];
+      yield put(SaveMateriais(newArrayData));
+    }
 
-    yield put(SaveMateriais(newArrayData));
-    afterSubmit(data);
+    navigation.pop();
+
+    Toast.show({
+      text: data.msg,
+      type: !data.error ? 'success' : 'danger',
+      buttonText: 'Fechar',
+      duration: 2000,
+    });
   } catch (error) {
-    console.log(error)
     yield put(SaveMateriais());
   }
 }

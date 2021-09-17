@@ -17,7 +17,7 @@ export const Input = styled.TextInput({
 export const Footer = styled.View({})
 
 export const SubmitButton = styled.TouchableOpacity({
-    backgroundColor: color.primaryColor,
+    backgroundColor:(props) => !props.disabled ? color.primaryColor : color.secondaryColor,
     marginHorizontal:'3%',
     borderRadius:25,
     marginVertical:'3%',

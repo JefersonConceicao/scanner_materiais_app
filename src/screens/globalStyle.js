@@ -27,9 +27,10 @@ export const TextSubmit = styled.Text({
 })
 
 export const SubmitButton = styled.TouchableOpacity({
-    backgroundColor: color.primaryColor,
+    backgroundColor:(props) => !props.disabled ? color.primaryColor : color.secondaryColor,
     marginHorizontal:'3%',
     borderRadius:25,
+
 })
 
 export const CardTitle = styled.Text({
@@ -51,15 +52,21 @@ export const FormGroup = styled.View({
 })
 
 export const FormLabel = styled.Text({
-    fontWeight:'200',
+    fontWeight:'300',
 })
 
 export const FormInput = styled.TextInput({
-    borderWidth:0.8,
-    borderColor: color.primaryColor,
+    borderWidth:1,
+    borderColor: color.secondaryColor,
     padding:'3%',
     marginTop:'2%',
     borderRadius:15,
+})
+
+export const LabelDanger = styled.Text({
+    color:'red',
+    fontSize:15,
+    fontWeight:'bold'
 })
 
 

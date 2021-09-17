@@ -19,10 +19,10 @@ export const Materiais = (payload) => ({
   payload,
 });
 
-export const ReqSaveMateriais = (payload, afterSubmit)=> ({
+export const ReqSaveMateriais = (payload, navigation) => ({
   type: REQ_SAVEMATERIAIS,
   payload,
-  afterSubmit,
+  navigation,
 })
 
 export const SaveMateriais = payload => ({

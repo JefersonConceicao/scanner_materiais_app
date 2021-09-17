@@ -1,23 +1,26 @@
-import React, {useState, useLayoutEffect} from 'react';
-import {connect} from 'react-redux';
-import {Text, Alert} from 'react-native';
-import IconAnt from 'react-native-vector-icons/AntDesign';
+import React, { useState, useLayoutEffect } from 'react';
+import { connect } from 'react-redux';
+import { Text } from 'react-native';
+import { useValidation } from 'react-native-form-validator';
 
 import Layout from '../../components/layout';
 import {
-  Label,
-  Input,
   Row,
   Footer,
   SubmitButton,
   TextSubmit,
-  TextSuccess,
 } from './style';
 
-import {Title, Container} from '../globalStyle';
-import {ReqScanner, ReqSaveMateriais} from '../../redux/actions';
-import {BottomPopUp} from 'react-native-gpp-utils';
-import {PrimaryButton} from '../materiais/style';
+import {
+  Title,
+  Container,
+  FormGroup,
+  FormLabel,
+  FormInput,
+  LabelDanger,
+} from '../globalStyle';
+
+import { ReqScanner, ReqSaveMateriais } from '../../redux/actions';
 
 const MateriaisPrev = ({
   navigation,
@@ -31,36 +34,44 @@ const MateriaisPrev = ({
 }) => {
   const [form, setForm] = useState(
     Object.keys(dataScan).length > 0
-      ? {...dataScan, setor_id: setorID}
+      ? { ...dataScan, setor_id: setorID }
       : {
-          patrimonio: !!route.params ? route.params : '',
-          descricao: '',
-          setor_id: setorID,
-        },
+        patrimonio: !!route.params ? route.params : '',
+        conta: "",
+        descricao: "",
+        localizacao: "",
+        situacao_fisica: "",
+        setor_id: setorID,
+      },
   );
-  const [visible, setVisible] = useState(false);
-  const [dataMaterial, setDataMaterial] = useState(null);
+
+  const { validate, isFieldInError, getErrorsInField, getErrorMessages, isFormValid } = useValidation({
+    state: {
+      patrimonio: form.patrimonio,
+      descricao: form.descricao,
+      localizacao: form.localizacao,
+      situacao_fisica: form.situacao_fisica
+    },
+    messages: {
+      en: { required: "Campo obrigatório" },
+    }
+  })
 
   useLayoutEffect(() => {
-    ReqScanner({codigo_barra: route.params});
+    ReqScanner({ codigo_barra: route.params });
   }, []);
 
   const handleSubmit = () => {
-    if (form.patrimonio == '' || form.descricao == '') {
-      Alert.alert(
-        'Preencha o formulário',
-        'preencha o formulário corretamente',
-      );
-      
-      return;
+    validate({
+      patrimonio: { required: true },
+      descricao: { required: true },
+      localizacao: { required: true },
+      situacao_fisica: { required: true }
+    })
+
+    if (!!isFormValid()) {
+      ReqSaveMateriais(form, navigation);
     }
-
-    ReqSaveMateriais(form, afterSubmit);
-  };
-
-  const afterSubmit = (data) => {
-    setVisible(true);
-    setDataMaterial({...data});
   };
 
   return (
@@ -68,69 +79,87 @@ const MateriaisPrev = ({
       {!!loadingScanner ? (
         <Text> Carregando... </Text>
       ) : (
-        <Container 
+        <Container
           keyboardShouldPersistTaps={'handled'}
           showsVerticalScrollIndicator={false}
         >
           <Title> Informações do Item: </Title>
+          <Text> Caso os campos não estejam preenchidos, preencha manualmente. </Text>
           <Container>
             <Row>
-              <Label> Patrimônio * </Label>
-              <Input
-                defaultValue={!!route.params ? route.params : ''}
-                onChangeText={(value) => {
-                  setForm({...form, patrimonio: value});
-                }}
-              />
+              <FormGroup>
+                <FormLabel> Patrimônio <LabelDanger> * </LabelDanger> </FormLabel>
+                <FormInput
+                  autoFocus={true}
+                  defaultValue={!!route.params ? route.params : ''}
+                  onChangeText={(value) => {
+                    setForm({ ...form, patrimonio: value });
+                  }}
+                />
+                {isFieldInError('patrimonio') && getErrorsInField('patrimonio').map((errorMessage, index) => (
+                  <Text style={{ color: 'red' }} key={index}> {errorMessage} </Text>
+                ))}
+              </FormGroup>
             </Row>
             <Row>
-              <Label> Conta </Label>
-              <Input
-                defaultValue={!!dataScan?.conta ? dataScan.conta : ''}
-                onChangeText={(value) => {
-                  setForm({...form, conta: value});
-                }}
-              />
+              <FormGroup>
+                <FormLabel> Conta </FormLabel>
+                <FormInput
+                  defaultValue={!!dataScan?.conta ? dataScan.conta : ''}
+                  onChangeText={(value) => {
+                    setForm({ ...form, conta: value });
+                  }}
+                />
+              </FormGroup>
             </Row>
             <Row>
-              <Label> Descrição * </Label>
-              <Input
-                defaultValue={!!dataScan?.descricao ? dataScan.descricao : ''}
-                onChangeText={(value) => {
-                  setForm({...form, descricao: value});
-                }}
-              />
+              <FormGroup>
+                <FormLabel> Descrição <LabelDanger> * </LabelDanger> </FormLabel>
+                <FormInput
+                  defaultValue={!!dataScan?.descricao ? dataScan.descricao : ''}
+                  onChangeText={(value) => {
+                    setForm({ ...form, descricao: value });
+                  }}
+                />
+                {isFieldInError('descricao') && getErrorsInField('descricao').map((errorMessage, index) => (
+                  <Text style={{ color: 'red' }} key={index}> {errorMessage} </Text>
+                ))}
+              </FormGroup>
             </Row>
             <Row>
-              <Label> Localização </Label>
-              <Input
-                defaultValue={
-                  !!dataScan?.localizacao ? dataScan.localizacao : ''
-                }
-                onChangeText={(value) => {
-                  setForm({...form, localizacao: value});
-                }}
-              />
+              <FormGroup>
+                <FormLabel> Localização <LabelDanger> * </LabelDanger> </FormLabel>
+                <FormInput
+                  defaultValue={
+                    !!dataScan?.localizacao ? dataScan.localizacao : ''
+                  }
+                  onChangeText={(value) => {
+                    setForm({ ...form, localizacao: value });
+                  }}
+                />
+                {isFieldInError('localizacao') && getErrorsInField('localizacao').map((errorMessage, index) => (
+                  <Text style={{ color: 'red' }} key={index}> {errorMessage} </Text>
+                ))}
+              </FormGroup>
             </Row>
             <Row>
-              <Label> Situação Fisica </Label>
-              <Input
+              <FormLabel> Situação Fisica  <LabelDanger> * </LabelDanger> </FormLabel>
+              <FormInput
                 defaultValue={
                   !!dataScan?.situacao_fisica ? dataScan.situacao_fisica : ''
                 }
                 onChangeText={(value) => {
-                  setForm({...form, situacao_fisica: value});
+                  setForm({ ...form, situacao_fisica: value });
                 }}
               />
+              {isFieldInError('situacao_fisica') && getErrorsInField('situacao_fisica').map((errorMessage, index) => (
+                <Text style={{ color: 'red' }} key={index}> {errorMessage} </Text>
+              ))}
             </Row>
           </Container>
           <Row>
             <Footer>
-              <SubmitButton
-                onPress={() => {
-                  handleSubmit();
-                }}
-                disabled={loadingSaveMateriais}>
+              <SubmitButton onPress={handleSubmit} disabled={loadingSaveMateriais}>
                 <TextSubmit>
                   {!loadingSaveMateriais ? 'Salvar' : 'Carregando...'}
                 </TextSubmit>
@@ -139,41 +168,12 @@ const MateriaisPrev = ({
           </Row>
         </Container>
       )}
-
-      <BottomPopUp
-        minHeight={200}
-        visible={visible}
-        onDismiss={() => {
-          setVisible(false)
-          navigation.pop()
-        }}>
-        <Container>
-          <IconAnt
-            name={!dataMaterial?.error ? 'checkcircle' : 'closecircle'}
-            size={40}
-            style={{
-              textAlign: 'center',
-              color: !dataMaterial?.error ? 'green' : 'red',
-            }}
-          />
-          <TextSuccess> {dataMaterial?.msg} </TextSuccess>
-
-          <PrimaryButton
-            onPress={() => {
-              navigation.replace('Scanner');
-            }}>
-            {!dataMaterial?.error && (
-              <TextSubmit> Escanear Novamente </TextSubmit>
-            )}
-          </PrimaryButton>
-        </Container>
-      </BottomPopUp>
     </Layout>
   );
 };
 
-const mapStateToProps = ({Scanner, Materiais, Setores}) => {
-  const {loadingScanner,  dataScan} = Scanner;
+const mapStateToProps = ({ Scanner, Materiais, Setores }) => {
+  const { loadingScanner, dataScan } = Scanner;
   const { loadingSaveMateriais } = Materiais;
   const { setorID } = Setores;
 

@@ -74,7 +74,8 @@ const Materiais = ({
   }
 
   const renderItem = ({ item }) => (
-    <CardItem onPress={() => { 
+    <CardItem 
+      onPress={() => { 
        setItem(item)
        setFormUpdate({...item})
     }}>
@@ -92,8 +93,8 @@ const Materiais = ({
 
   const renderEmptyComponent = () => {
     return(
-      <View> 
-        <TextEmpty> Nenhum item na lista </TextEmpty>
+      <View style={{ flex:1, alignItems:'center'}}> 
+        <TextEmpty> Sem itens  </TextEmpty>
       </View>
     )
   }

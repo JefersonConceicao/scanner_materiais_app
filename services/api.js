@@ -1,7 +1,7 @@
 import axios from 'axios';
  
 const api = axios.create({
-    baseURL: 'https://scanner.mallone.com.br'
+    baseURL: 'http://10.73.0.45:8000'
 })
 
 export default api;
