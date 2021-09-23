@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
 import { color } from '../../constants';
-import { Dimensions } from 'react-native';
 
-export const ContainerScanner = styled.View({})
+export const ContainerScanner = styled.View({
+   
+
+})
 
 export const Scanned = styled.TouchableOpacity({
     backgroundColor: color.primaryColor,
@@ -19,7 +21,7 @@ export const ScannerLine = styled.View({
 export const InfoScanner = styled.Text({
     color: color.primaryColor,
     fontWeight:'bold',
-    marginVertical:'3%',
+    marginVertical:'4%',
     textAlign:'center',
 })
 

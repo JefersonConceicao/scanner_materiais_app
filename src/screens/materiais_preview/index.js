@@ -1,8 +1,7 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'react-native';
 import { useValidation } from 'react-native-form-validator';
-
 import Layout from '../../components/layout';
 import {
   Row,
@@ -32,18 +31,14 @@ const MateriaisPrev = ({
   dataScan,
   setorID,
 }) => {
-  const [form, setForm] = useState(
-    Object.keys(dataScan).length > 0
-      ? { ...dataScan, setor_id: setorID }
-      : {
-        patrimonio: !!route.params ? route.params : '',
-        conta: "",
-        descricao: "",
-        localizacao: "",
-        situacao_fisica: "",
-        setor_id: setorID,
-      },
-  );
+  const [form, setForm] = useState({
+    patrimonio: !!route.params ? route.params : "",
+    conta: "",
+    descricao: "",
+    localizacao: "",
+    situacao_fisica: "",
+    setor_id: setorID,
+  });
 
   const { validate, isFieldInError, getErrorsInField, getErrorMessages, isFormValid } = useValidation({
     state: {
@@ -58,8 +53,15 @@ const MateriaisPrev = ({
   })
 
   useLayoutEffect(() => {
-    ReqScanner({ codigo_barra: route.params });
+    ReqScanner({ codigo_barra: route.params});
   }, []);
+
+  useEffect(() => {
+    if(Object.keys(dataScan).length > 0){
+      setForm({...dataScan, setor_id: setorID });
+    }
+  }, [dataScan]);
+
 
   const handleSubmit = () => {
     validate({
@@ -70,6 +72,7 @@ const MateriaisPrev = ({
     })
 
     if (!!isFormValid()) {
+      console.log(form)
       ReqSaveMateriais(form, navigation);
     }
   };
@@ -79,10 +82,7 @@ const MateriaisPrev = ({
       {!!loadingScanner ? (
         <Text> Carregando... </Text>
       ) : (
-        <Container
-          keyboardShouldPersistTaps={'handled'}
-          showsVerticalScrollIndicator={false}
-        >
+        <Container keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
           <Title> Informações do Item: </Title>
           <Text> Caso os campos não estejam preenchidos, preencha manualmente. </Text>
           <Container>
@@ -92,9 +92,7 @@ const MateriaisPrev = ({
                 <FormInput
                   autoFocus={true}
                   defaultValue={!!route.params ? route.params : ''}
-                  onChangeText={(value) => {
-                    setForm({ ...form, patrimonio: value });
-                  }}
+                  onChangeText={(value) => { setForm({ ...form, patrimonio: value }) }}
                 />
                 {isFieldInError('patrimonio') && getErrorsInField('patrimonio').map((errorMessage, index) => (
                   <Text style={{ color: 'red' }} key={index}> {errorMessage} </Text>

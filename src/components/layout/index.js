@@ -13,9 +13,7 @@ const Layout = ({children, withback}) => {
         <BackButton
           hitSlop={{right: 50}}
           disabled={withback == false}
-          onPress={() => {
-            navigation.pop();
-          }}>
+          onPress={() => { navigation.pop() }}>
           {withback && <IconFA name="chevron-left" size={20} color="#ffff" />}
         </BackButton>
         <TitleView withback={withback}>
