@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { FlatList, Text, View, Alert, RefreshControl } from 'react-native';
 import { BottomPopUp } from 'react-native-gpp-utils';
+import { Spinner } from 'native-base';
 import Layout from '../../components/layout';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconIon from 'react-native-vector-icons/Ionicons';
@@ -20,7 +21,7 @@ import {
   DeleteTouch,
 } from './style';
 
-import { Title, CardTitle, Row,  SubmitButton, TextSubmit, TextDanger} from '../globalStyle';
+import { Title, CardTitle, Row,  SubmitButton, TextSubmit, TextDanger, SubTitle} from '../globalStyle';
 import { color } from '../../constants';
 import { ReqMateriais, ReqUpdateMateriais, ReqDeleteMateriais } from '../../redux/actions';
 
@@ -48,7 +49,7 @@ const Materiais = ({
   })
 
   useLayoutEffect(() => {
-    ReqMateriais(route.params);
+    ReqMateriais({setor_id: route.params.setor});
   }, []);
 
   const handleDelete = id => {
@@ -79,12 +80,12 @@ const Materiais = ({
        setItem(item)
        setFormUpdate({...item})
     }}>
-      <View>
+      <View style={{ width:'70%'}}>
         <TitleItem> {!!item.nome_material ? item.nome_material : "N/A"} </TitleItem>
         <SubTitleItem />
         <SubTitleItem> {!!item.codigo_barra ? item.codigo_barra : "N/A"} </SubTitleItem>
       </View>
-      <View>
+      <View style={{width:'30%'}}>
         <SettingsItem> {!!item.situacao ? item.situacao : "N/A"} </SettingsItem>
         <SettingsItem bold> {!!item.local ? item.local : "N/A"} </SettingsItem>
       </View>
@@ -103,7 +104,10 @@ const Materiais = ({
     <Layout withback>
       <Container style={{ marginTop:'3%'}}>
         <HeaderList>
-          <Title> Itens: </Title>
+          <View>
+            <Title> Itens </Title>
+            <SubTitle> Setor: {route.params.dataSetor.nome_setor} </SubTitle>
+          </View>
           <PrimaryButton onPress={() => {
             navigation.navigate('Scanner')
           }}>
@@ -116,6 +120,9 @@ const Materiais = ({
           </TextButton>
         </PrimaryButton>
         </HeaderList>
+        {loadingMateriais ? 
+            <Spinner color={color.primaryColor}/> 
+          :
           <FlatList
             showsVerticalScrollIndicator={false}
             renderItem={renderItem}
@@ -126,13 +133,14 @@ const Materiais = ({
               <RefreshControl 
                 colors={[color.primaryColor]}
                 onRefresh={() => {
-                  ReqMateriais(route.params)
+                  ReqMateriais({setor_id: route.params.setor})
                 }}
               />
             }
             refreshing={loadingMateriais}
             ListEmptyComponent={renderEmptyComponent}
           />
+        }
       </Container>
       {!!item &&
         <BottomPopUp

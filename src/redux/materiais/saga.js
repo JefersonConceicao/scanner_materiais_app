@@ -29,9 +29,9 @@ function* saveMateriaisSaga({ payload, navigation }) {
     if(!data.error){
       let newArrayData = [...[data.register_added], ...Materiais.dataMateriais];
       yield put(SaveMateriais(newArrayData));
-    }
 
-    navigation.pop();
+      navigation.pop();
+    }
 
     Toast.show({
       text: data.msg,
@@ -39,7 +39,15 @@ function* saveMateriaisSaga({ payload, navigation }) {
       buttonText: 'Fechar',
       duration: 2000,
     });
+    yield put(SaveMateriais());
   } catch (error) {
+    Toast.show({
+      text: 'Ocorreu um erro interno, tente novamente mais tarde',
+      type: 'danger',
+      buttonText: 'Fechar',
+      duration: 2000,
+    });
+
     yield put(SaveMateriais());
   }
 }

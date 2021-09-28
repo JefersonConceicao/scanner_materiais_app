@@ -24,11 +24,10 @@ import {
 import { color } from '../../constants';
 
 import { ReqSetores, SetSetorID, ReqDeleteSetor,ReqSetoresCreate } from '../../redux/actions';
-
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 
-const Home = ({
+const Setores = ({
   //LOADINGS
   loadingSetores,
   loadingDeleteSetor,
@@ -119,7 +118,7 @@ const Home = ({
   const renderItem = ({ item }) => (
     <Item
       onPress={() => {
-        navigation.navigate('Materiais', { setor_id: item.id })
+        navigation.navigate('Materiais', { setor: item.id, dataSetor: item})
         SetSetorID(item.id)
       }}
       onLongPress={() => {
@@ -146,7 +145,7 @@ const Home = ({
     <Layout>
       <Container>
         <Header>
-          <Title> Setores: </Title>
+          <Title> Escolha um setor: </Title>
           <TouchableOpacity 
             onPress={() => {
               setPopupCreate(true)
@@ -203,4 +202,4 @@ export default connect(mapStateToProps, {
   SetSetorID,
   ReqDeleteSetor,
   ReqSetoresCreate,
-})(Home);
+})(Setores);

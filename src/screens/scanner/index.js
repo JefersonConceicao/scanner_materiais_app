@@ -4,13 +4,11 @@ import {View, Text} from 'react-native';
 import Orientation from 'react-native-orientation';
 import {RNCamera} from 'react-native-camera';
 import {useCamera} from 'react-native-camera-hooks';
-
 import Layout from '../../components/layout';
 import {
   ContainerScanner,
   ScannerLine, 
   InfoScanner,
-
 } from './style';
 
 import {Container, TextSubmit, SubmitButton} from '../globalStyle';
@@ -72,7 +70,7 @@ const Scanner = ({ navigation }) => {
           Aponte a camera para um código de barra ou
         </InfoScanner>
         <SubmitButton onPress={() => {
-          navigation.replace("MateriaisPrev")
+          navigation.replace("MateriaisPrev");
         }}>
           <TextSubmit>  
             Cadastre Manualmente

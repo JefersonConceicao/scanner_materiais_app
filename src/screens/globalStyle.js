@@ -12,6 +12,12 @@ export const Title = styled.Text({
     fontSize:20,
 })
 
+export const SubTitle = styled.Text({
+    fontFamily: 'Roboto',
+    fontWeight:'100',
+    fontSize:14,
+})
+
 export const Row = styled.View({
     flexDirection:'row',
     justifyContent:'space-between',

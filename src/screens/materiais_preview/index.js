@@ -9,7 +9,6 @@ import {
   SubmitButton,
   TextSubmit,
 } from './style';
-
 import {
   Title,
   Container,
@@ -32,7 +31,7 @@ const MateriaisPrev = ({
   setorID,
 }) => {
   const [form, setForm] = useState({
-    patrimonio: !!route.params ? route.params : "",
+    patrimonio: "",
     conta: "",
     descricao: "",
     localizacao: "",
@@ -62,7 +61,6 @@ const MateriaisPrev = ({
     }
   }, [dataScan]);
 
-
   const handleSubmit = () => {
     validate({
       patrimonio: { required: true },
@@ -72,7 +70,6 @@ const MateriaisPrev = ({
     })
 
     if (!!isFormValid()) {
-      console.log(form)
       ReqSaveMateriais(form, navigation);
     }
   };
@@ -128,9 +125,7 @@ const MateriaisPrev = ({
               <FormGroup>
                 <FormLabel> Localização <LabelDanger> * </LabelDanger> </FormLabel>
                 <FormInput
-                  defaultValue={
-                    !!dataScan?.localizacao ? dataScan.localizacao : ''
-                  }
+                  defaultValue={!!dataScan?.localizacao ? dataScan.localizacao : ''}
                   onChangeText={(value) => {
                     setForm({ ...form, localizacao: value });
                   }}
@@ -143,9 +138,7 @@ const MateriaisPrev = ({
             <Row>
               <FormLabel> Situação Fisica  <LabelDanger> * </LabelDanger> </FormLabel>
               <FormInput
-                defaultValue={
-                  !!dataScan?.situacao_fisica ? dataScan.situacao_fisica : ''
-                }
+                defaultValue={!!dataScan?.situacao_fisica ? dataScan.situacao_fisica : ''}
                 onChangeText={(value) => {
                   setForm({ ...form, situacao_fisica: value });
                 }}
@@ -159,7 +152,7 @@ const MateriaisPrev = ({
             <Footer>
               <SubmitButton onPress={handleSubmit} disabled={loadingSaveMateriais}>
                 <TextSubmit>
-                  {!loadingSaveMateriais ? 'Salvar' : 'Carregando...'}
+                  {!loadingSaveMateriais ? 'Confirmar' : 'Carregando...'}
                 </TextSubmit>
               </SubmitButton>
             </Footer>

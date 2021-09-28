@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Root } from 'native-base';
 
-import Home from './src/screens/home';
+import Setores from './src/screens/setores';
 import Materiais from './src/screens/materiais';
 import Scanner from './src/screens/scanner';
 import MateriaisPrev from './src/screens/materiais_preview';
@@ -18,9 +18,9 @@ const App = () => {
       <Root>
         <Provider store={Store}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName="Setores" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Layout" component={Layout} />
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Setores" component={Setores} />
               <Stack.Screen name="Materiais" component={Materiais} />
               <Stack.Screen name="Scanner" component={Scanner} />
               <Stack.Screen name="MateriaisPrev" component={MateriaisPrev} />
